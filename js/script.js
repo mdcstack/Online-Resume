@@ -44,6 +44,33 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
                 });
+                // ==========================================
+                // NEW: Mobile Menu Toggle Logic
+                // ==========================================
+                const mobileMenu = document.getElementById('mobile-menu');
+                const navMenu = document.querySelector('.nav-menu');
+
+                if (mobileMenu && navMenu) {
+                    // Open/Close menu when clicking the hamburger
+                    mobileMenu.addEventListener('click', () => {
+                        mobileMenu.classList.toggle('is-active');
+                        navMenu.classList.toggle('active');
+                        
+                        // Prevent background scrolling when menu is open
+                        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+                    });
+                    
+                    // Close the menu automatically if a link is clicked
+                    const navLinks = navMenu.querySelectorAll('a');
+                    navLinks.forEach(link => {
+                        link.addEventListener('click', () => {
+                            mobileMenu.classList.remove('is-active');
+                            navMenu.classList.remove('active');
+                            document.body.style.overflow = 'auto';
+                        });
+                    });
+                }
+                // ==========================================
             })
             .catch(error => console.error('Routing Error:', error));
     }
